@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
             if (passwordEditText.getText().toString().equals("") && usernameEditText.getText().toString().equals("")) {
-                Intent switchActivityIntent = new Intent(this, ListActivity.class);
+                Intent switchActivityIntent = new Intent(this, ChronoActivity.class);
                 startActivity(switchActivityIntent);
             } else {
                 Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects.", Toast.LENGTH_SHORT);
@@ -192,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
                                 replyContent.append("idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse") + "\n");
                             }
                             // Start list activity ( classes list)
-                            Intent classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
+                            Intent classesActivityIntent = new Intent(v.getContext(), ChronoActivity.class);
                             System.out.println(jsonArray);
                             classesActivityIntent.putExtra("classes", jsonArray.toString());
                             startActivity(classesActivityIntent);
