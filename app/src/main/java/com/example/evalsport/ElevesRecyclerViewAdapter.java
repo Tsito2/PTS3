@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ElevesRecyclerViewAdapter extends RecyclerView.Adapter<ElevesRecyclerViewAdapter.ViewHolder> {
-
+    /**
+     * Hello world !
+     */
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
