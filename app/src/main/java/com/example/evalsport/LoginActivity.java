@@ -59,7 +59,9 @@ public class LoginActivity extends AppCompatActivity {
 
         connectButton.setOnClickListener(view -> {
 
+            handleConnect(view);
 
+            /*
             if (passwordEditText.getText().toString().equals("") && usernameEditText.getText().toString().equals("")) {
                 Intent switchActivityIntent = new Intent(this, ListActivity.class);
                 startActivity(switchActivityIntent);
@@ -69,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                 handleConnect(view);
             }
             Log.i("Listener", "Connect button clicked");
+
+             */
 
 
         });
