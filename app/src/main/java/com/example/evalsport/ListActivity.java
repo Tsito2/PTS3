@@ -21,21 +21,25 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
 
     ListRecyclerViewAdapter adapter;
     public final String TAG = "ListActivity";
+    private JSONArray jsonSports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        JSONArray jsonArray = null;
+
+        JSONArray jsonClasses = null;
+        jsonSports = null;
         try {
-            jsonArray = new JSONArray(getIntent().getExtras().getString("classes"));
+            jsonClasses = new JSONArray(getIntent().getExtras().getString("classes"));
+            jsonSports = new JSONArray(getIntent().getExtras().getString("sports"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println("In list activity : " + jsonArray);
+        System.out.println("In list activity : " + jsonClasses);
 
         ArrayList<String> listeClasses = new ArrayList<>();
-        JSONArray jArray = jsonArray;
+        JSONArray jArray = jsonClasses;
         if (jArray != null) {
             for (int i=0;i<jArray.length();i++){
                 try {
@@ -74,6 +78,7 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
     public void onItemClick(View v, int position) {
         Log.i(TAG, "View : " + v.toString() + "\nPosition : " + position);
         Intent sportActivityIntent = new Intent(this, SportActivity.class);
+        sportActivityIntent.putExtra("sports", jsonSports.toString());
         startActivity(sportActivityIntent);
     }
 
