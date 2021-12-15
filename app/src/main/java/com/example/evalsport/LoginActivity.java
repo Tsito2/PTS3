@@ -189,8 +189,8 @@ public class LoginActivity extends AppCompatActivity {
                             JSONArray jsonArray = json.getJSONArray("classes");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject classe = jsonArray.getJSONObject(i);
-                                JSONArray eleves = classe.getJSONArray("eleves");
                                 replyContent.append("idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse") + "\n");
+                                JSONArray eleves = classe.getJSONArray("eleves");
                                 for(int k = 0; k < eleves.length(); k++){
                                     JSONObject eleve = eleves.getJSONObject(k);
                                     replyContent.append("idEleve = " + eleve.getString("idEleve") + " - " + eleve.getString("nomEleve") + "\n");
@@ -203,16 +203,14 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject sport = jsonArray1.getJSONObject(j);
                                 Log.d(TAG, "idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport"));
                                 replyContent.append("idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport") + "\n");
-                                Log.e(TAG, "Erreur ici");
                             }
 
                             // Start list activity ( classes list)
-                            /*
                             Intent classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
                             System.out.println(jsonArray);
                             classesActivityIntent.putExtra("classes", jsonArray.toString());
                             startActivity(classesActivityIntent);
-                            finish();*/
+                            finish();
 
                         }
                         catch (JSONException e) {
