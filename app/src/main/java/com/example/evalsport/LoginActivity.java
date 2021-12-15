@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evalsport.models.Student;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +37,7 @@ import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -190,15 +193,12 @@ public class LoginActivity extends AppCompatActivity {
                             replyContent.append(json.getString("nomProfesseur") + " connection acceptée\n");
 
                             // Extraction de la liste des classes
+                            JSONArray eleves = new JSONArray();
                             JSONArray classes = json.getJSONArray("classes");
                             for (int i = 0; i < classes.length(); i++) {
                                 JSONObject classe = classes.getJSONObject(i);
                                 replyContent.append("idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse") + "\n");
-                                JSONArray eleves = classe.getJSONArray("eleves");
-                                for(int k = 0; k < eleves.length(); k++){
-                                    JSONObject eleve = eleves.getJSONObject(k);
-                                    replyContent.append("idEleve = " + eleve.getString("idEleve") + " - " + eleve.getString("nomEleve") + "\n");
-                                }
+
                                 Log.d(TAG, "idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse"));
                             }
                             // Extraction de la liste des sports
@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
                             for (int j = 0; j < sports.length(); j++) {
                                 JSONObject sport = sports.getJSONObject(j);
                                 Log.d(TAG, "idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport"));
-                                replyContent.append("idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport") + "\n");
+                                //replyContent.append("idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport") + "\n");
                             }
 
                             // Start list activity ( classes list)
@@ -214,6 +214,7 @@ public class LoginActivity extends AppCompatActivity {
                             System.out.println(classes);
                             classesActivityIntent.putExtra("classes", classes.toString());
                             classesActivityIntent.putExtra("sports", sports.toString());
+                            classesActivityIntent.putExtra("json", json.toString());
                             startActivity(classesActivityIntent);
                             finish();
 

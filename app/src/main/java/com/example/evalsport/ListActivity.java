@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.evalsport.models.Student;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -22,6 +25,7 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
     ListRecyclerViewAdapter adapter;
     public final String TAG = "ListActivity";
     private JSONArray jsonSports;
+    private JSONObject json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +34,11 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
 
         JSONArray jsonClasses = null;
         jsonSports = null;
+        json = null;
         try {
             jsonClasses = new JSONArray(getIntent().getExtras().getString("classes"));
             jsonSports = new JSONArray(getIntent().getExtras().getString("sports"));
+            json = new JSONObject(getIntent().getExtras().getString("json"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -79,6 +85,7 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
         Log.i(TAG, "View : " + v.toString() + "\nPosition : " + position);
         Intent sportActivityIntent = new Intent(this, SportActivity.class);
         sportActivityIntent.putExtra("sports", jsonSports.toString());
+        sportActivityIntent.putExtra("json", json.toString());
         startActivity(sportActivityIntent);
     }
 

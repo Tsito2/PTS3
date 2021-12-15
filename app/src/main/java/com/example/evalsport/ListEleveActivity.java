@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class ListEleveActivity extends AppCompatActivity implements ElevesRecyclerViewAdapter.ItemClickListener {
@@ -22,12 +26,35 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eleves);
+
+        JSONObject json = null;
+        JSONArray jsonEleves = null;
+        try {
+            json = new JSONObject(getIntent().getExtras().getString("json"));
+            jsonEleves = json.getJSONArray("classes").getJSONObject(1).getJSONArray("eleves");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         ArrayList<String> listeEleves = new ArrayList<>();
+        for (int i=0; i < jsonEleves.length(); i++) {
+            JSONObject e = null;
+            try {
+                e = jsonEleves.getJSONObject(i);
+                listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve"));
+            } catch (JSONException jsonException) {
+                jsonException.printStackTrace();
+            }
+
+        }
+/*
         listeEleves.add("Elève A");
         listeEleves.add("Elève B");
         listeEleves.add("Elève C");
         listeEleves.add("Elève D");
         listeEleves.add("Elève E");
+
+ */
 
 
 
