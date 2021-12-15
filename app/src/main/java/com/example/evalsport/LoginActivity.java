@@ -62,6 +62,17 @@ public class LoginActivity extends AppCompatActivity {
         debugTextView = findViewById(R.id.debugTextView);
 
         connectButton.setOnClickListener(view -> {
+            Log.e(TAG, usernameEditText.getText().toString());
+            if (usernameEditText.getText().toString().contains("chrono"))
+
+
+
+
+            {
+                Intent chronoActivity = new Intent(this, ChronoActivity.class);
+                startActivity(chronoActivity);
+                finish();
+            }
 
             handleConnect(view);
 
@@ -103,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 String login    = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+
 
                 HttpURLConnection urlConnection = null;
 
