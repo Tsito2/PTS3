@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 
 import com.example.evalsport.models.Sport;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class SportActivity extends AppCompatActivity implements SportsRecyclerViewAdapter.ItemClickListener {
@@ -29,13 +32,34 @@ public class SportActivity extends AppCompatActivity implements SportsRecyclerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sports);
 
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(getIntent().getExtras().getString("sports"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println("In listSports activity : " + jsonArray);
+
         ArrayList<Sport> listSports = new ArrayList<>();
-        listSports.add(new Sport("Escalade", R.drawable.escalade));
+
+        JSONArray jArray = jsonArray;
+        if (jArray != null) {
+            for (int i=0;i<jArray.length();i++){
+                try {
+                    listSports.add(new Sport(jArray.getJSONObject(i).getString("nomSport"), R.drawable.course_haie));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        System.out.println("After parsing : " + listSports);
+        /*listSports.add(new Sport("Escalade", R.drawable.escalade));
         listSports.add(new Sport("Course haie", R.drawable.course_haie));
         listSports.add(new Sport("Natation", R.drawable.natation));
         listSports.add(new Sport("Saut en longueur", R.drawable.saut));
         listSports.add(new Sport("Basketball", R.drawable.basket));
-        listSports.add(new Sport("Football", R.drawable.football));
+        listSports.add(new Sport("Football", R.drawable.football));*/
 
         RecyclerView recyclerView = findViewById(R.id.rvSports);
         LinearLayout linearLayout = findViewById(R.id.loSports);

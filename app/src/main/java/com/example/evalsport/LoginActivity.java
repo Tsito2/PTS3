@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void handleConnect(View v) {
-        debugTextView.setText("Connection en cours...\n");
+        debugTextView.setText("Connexion en cours...\n");
 
         Thread thr = new Thread(new Runnable() {
             public void run() {
@@ -190,9 +190,9 @@ public class LoginActivity extends AppCompatActivity {
                             replyContent.append(json.getString("nomProfesseur") + " connection acceptée\n");
 
                             // Extraction de la liste des classes
-                            JSONArray jsonArray = json.getJSONArray("classes");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject classe = jsonArray.getJSONObject(i);
+                            JSONArray classes = json.getJSONArray("classes");
+                            for (int i = 0; i < classes.length(); i++) {
+                                JSONObject classe = classes.getJSONObject(i);
                                 replyContent.append("idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse") + "\n");
                                 JSONArray eleves = classe.getJSONArray("eleves");
                                 for(int k = 0; k < eleves.length(); k++){
@@ -202,17 +202,18 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d(TAG, "idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse"));
                             }
                             // Extraction de la liste des sports
-                            JSONArray jsonArray1 = json.getJSONArray("sports");
-                            for (int j = 0; j < jsonArray1.length(); j++) {
-                                JSONObject sport = jsonArray1.getJSONObject(j);
+                            JSONArray sports = json.getJSONArray("sports");
+                            for (int j = 0; j < sports.length(); j++) {
+                                JSONObject sport = sports.getJSONObject(j);
                                 Log.d(TAG, "idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport"));
                                 replyContent.append("idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport") + "\n");
                             }
 
                             // Start list activity ( classes list)
                             Intent classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
-                            System.out.println(jsonArray);
-                            classesActivityIntent.putExtra("classes", jsonArray.toString());
+                            System.out.println(classes);
+                            classesActivityIntent.putExtra("classes", classes.toString());
+                            classesActivityIntent.putExtra("sports", sports.toString());
                             startActivity(classesActivityIntent);
                             finish();
 
