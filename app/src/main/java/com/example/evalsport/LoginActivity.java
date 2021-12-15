@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
             /*
             if (passwordEditText.getText().toString().equals("") && usernameEditText.getText().toString().equals("")) {
-                Intent switchActivityIntent = new Intent(this, ListActivity.class);
+                Intent switchActivityIntent = new Intent(this, ChronoActivity.class);
                 startActivity(switchActivityIntent);
             } else {
                 Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects.", Toast.LENGTH_SHORT);
@@ -192,15 +193,30 @@ public class LoginActivity extends AppCompatActivity {
                             JSONArray jsonArray = json.getJSONArray("classes");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject classe = jsonArray.getJSONObject(i);
-                                Log.d(TAG, "idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse"));
+                                JSONArray eleves = classe.getJSONArray("eleves");
                                 replyContent.append("idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse") + "\n");
+                                for(int k = 0; k < eleves.length(); k++){
+                                    JSONObject eleve = eleves.getJSONObject(k);
+                                    replyContent.append("idEleve = " + eleve.getString("idEleve") + " - " + eleve.getString("nomEleve") + "\n");
+                                }
+                                Log.d(TAG, "idClasse = " + classe.getString("idClasse") + " - " + classe.getString("nomClasse"));
                             }
+                            // Extraction de la liste des sports
+                            JSONArray jsonArray1 = json.getJSONArray("sports");
+                            for (int j = 0; j < jsonArray1.length(); j++) {
+                                JSONObject sport = jsonArray1.getJSONObject(j);
+                                Log.d(TAG, "idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport"));
+                                replyContent.append("idSport = " + sport.getString("idSport") + " - " + sport.getString("nomSport") + "\n");
+                                Log.e(TAG, "Erreur ici");
+                            }
+
                             // Start list activity ( classes list)
+                            /*
                             Intent classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
                             System.out.println(jsonArray);
                             classesActivityIntent.putExtra("classes", jsonArray.toString());
                             startActivity(classesActivityIntent);
-                            finish();
+                            finish();*/
 
                         }
                         catch (JSONException e) {
@@ -216,8 +232,8 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        debugTextView.setText(debugTextView.getText() + replyContent.toString());
-                        debugTextView.append("Connexion terminée");
+                        //debugTextView.setText(debugTextView.getText() + replyContent.toString());
+                        //debugTextView.append("Connexion terminée");
                        // System.out.println("OAEDFDJVF");
                     }
 
