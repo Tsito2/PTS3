@@ -83,7 +83,7 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
     @Override
     public void onItemClick(View v, int position) {
         Log.i(TAG, "View : " + v.toString() + "\nPosition : " + position);
-        Intent sportActivityIntent = new Intent(this, SportActivity.class);
+        Intent sportActivityIntent = new Intent(this, RecapActivity.class);
         sportActivityIntent.putExtra("sports", jsonSports.toString());
         sportActivityIntent.putExtra("json", json.toString());
         startActivity(sportActivityIntent);
