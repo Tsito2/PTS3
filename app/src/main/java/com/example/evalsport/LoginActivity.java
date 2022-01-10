@@ -64,15 +64,18 @@ public class LoginActivity extends AppCompatActivity {
         connectButton.setOnClickListener(view -> {
             Log.e(TAG, usernameEditText.getText().toString());
             if (usernameEditText.getText().toString().contains("chrono"))
-
-
-
-
             {
                 Intent chronoActivity = new Intent(this, ChronoActivity.class);
                 startActivity(chronoActivity);
                 finish();
             }
+            else if (usernameEditText.getText().toString().contains("recap")){
+                Intent recapActivity = new Intent(this, RecapActivity.class);
+                startActivity(recapActivity);
+                finish();
+            }
+
+
 
             handleConnect(view);
 
