@@ -79,20 +79,6 @@ public class LoginActivity extends AppCompatActivity {
 
             handleConnect(view);
 
-            /*
-            if (passwordEditText.getText().toString().equals("") && usernameEditText.getText().toString().equals("")) {
-                Intent switchActivityIntent = new Intent(this, ChronoActivity.class);
-                startActivity(switchActivityIntent);
-            } else {
-                Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects.", Toast.LENGTH_SHORT);
-                toast.show();
-                handleConnect(view);
-            }
-            Log.i("Listener", "Connect button clicked");
-
-             */
-
-
         });
 
     }

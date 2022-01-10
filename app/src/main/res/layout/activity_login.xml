@@ -30,7 +30,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:shadowColor="#040404"
-                android:text="Evaluator"
+                android:text="EvalSport"
                 android:textColor="#D82121"
                 android:textSize="48sp" />
 

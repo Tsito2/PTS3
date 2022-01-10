@@ -25,7 +25,10 @@ public class ChronoActivity extends AppCompatActivity {
     private TextView tvEleve4;
     private String[] studentsTime;
     private String[] studentsPassed;
+    private Integer[] studentsScore;
+    private long[] studentsMillis;
     private Button btnReset;
+    private Button btnValidate;
     String name1;
     String name2;
     String name3;
@@ -43,6 +46,7 @@ public class ChronoActivity extends AppCompatActivity {
         this.chronometer = findViewById(R.id.chrono);
         this.buttonGo = findViewById(R.id.ivButton);
         this.btnReset = findViewById(R.id.resetButton);
+        this.btnValidate = findViewById(R.id.validateButton);
         this.tvEleve1 = findViewById(R.id.tvEleve1);
         this.tvEleve2 = findViewById(R.id.tvEleve2);
         this.tvEleve3 = findViewById(R.id.tvEleve3);
@@ -60,12 +64,15 @@ public class ChronoActivity extends AppCompatActivity {
         count = 0;
         position = 0;
         studentsTime = new String[studentNumber];
+        studentsScore = new Integer[studentNumber];
+        studentsMillis = new long[studentNumber];
 
         tvEleve1.setVisibility(View.INVISIBLE);
         tvEleve2.setVisibility(View.INVISIBLE);
         tvEleve3.setVisibility(View.INVISIBLE);
         tvEleve4.setVisibility(View.INVISIBLE);
         btnReset.setVisibility(View.INVISIBLE);
+        btnValidate.setVisibility(View.INVISIBLE);
 
         this.buttonGo.setOnClickListener(view -> {
             buttonGo.startAnimation(animation);
@@ -76,6 +83,10 @@ public class ChronoActivity extends AppCompatActivity {
             } else {
                 doStop();
             }
+        });
+
+        this.btnValidate.setOnClickListener(view -> {
+            writeJson();
         });
 
         if (studentNumber >= 4) {
@@ -101,11 +112,12 @@ public class ChronoActivity extends AppCompatActivity {
         tvEleve3.setVisibility(View.INVISIBLE);
         tvEleve4.setVisibility(View.INVISIBLE);
         btnReset.setVisibility(View.INVISIBLE);
+        btnValidate.setVisibility(View.INVISIBLE);
         long elapsedRealtime = SystemClock.elapsedRealtime();
         this.chronometer.setBase(elapsedRealtime);
         this.chronometer.start();
         Context context = buttonGo.getContext();
-        int id = context.getResources().getIdentifier("pause_button", "drawable", context.getPackageName());
+        int id = context.getResources().getIdentifier("first_button", "drawable", context.getPackageName());
         buttonGo.setImageDrawable(getResources().getDrawable(id));
         count++;
     }
@@ -113,6 +125,20 @@ public class ChronoActivity extends AppCompatActivity {
     private void doNext() {
         updateTable();
         count++;
+        Context context = buttonGo.getContext();
+        if (count == 1) {
+            int id = context.getResources().getIdentifier("first_button", "drawable", context.getPackageName());
+            buttonGo.setImageDrawable(getResources().getDrawable(id));
+        } else if (count == 2) {
+            int id = context.getResources().getIdentifier("second_button", "drawable", context.getPackageName());
+            buttonGo.setImageDrawable(getResources().getDrawable(id));
+        } else if (count == 3) {
+            int id = context.getResources().getIdentifier("third_button", "drawable", context.getPackageName());
+            buttonGo.setImageDrawable(getResources().getDrawable(id));
+        } else {
+            int id = context.getResources().getIdentifier("fourth_button", "drawable", context.getPackageName());
+            buttonGo.setImageDrawable(getResources().getDrawable(id));
+        }
     }
 
     private void doStop() {
@@ -128,9 +154,10 @@ public class ChronoActivity extends AppCompatActivity {
 
     private void updateTable() {
         long millis = SystemClock.elapsedRealtime() - chronometer.getBase();
+        studentsMillis[count - 1] = millis;
         long minutes = (millis / 1000) / 60;
         long seconds = (millis / 1000) % 60;
-        String s = String.format("%02d:%02d.%03d", minutes, seconds, millis - seconds * 1000);
+        String s = String.format("%02d:%02d.%03d", minutes, seconds, millis - (seconds + (minutes * 60)) * 1000);
         studentsTime[count - 1] = s;
     }
 
@@ -168,15 +195,26 @@ public class ChronoActivity extends AppCompatActivity {
         if (flag == 1) {
             String name = t.getText().toString();
             if (position == 0) {
-                t.setText("1er - " + name + " - " + studentsTime[position]);
+                int score = noter(0);
+                t.setText("1er - " + name + " - " + studentsTime[position] + " - " + score + "/8");
+                studentsScore[position] = score;
             } else if (position == 1) {
-                t.setText("2ème - " + name + " - " + studentsTime[position]);
+                int score = noter(1);
+                t.setText("2ème - " + name + " - " + studentsTime[position] + " - " + score + "/8");
+                studentsScore[position] = score;
             } else if (position == 2) {
-                t.setText("3ème - " + name + " - " + studentsTime[position]);
+                int score = noter(2);
+                t.setText("3ème - " + name + " - " + studentsTime[position] + " - " + score + "/8");
+                studentsScore[position] = score;
             } else if (position == 3) {
-                t.setText("4ème - " + name + " - " + studentsTime[position]);
+                int score = noter(3);
+                t.setText("4ème - " + name + " - " + studentsTime[position] + " - " + score + "/8");
+                studentsScore[position] = score;
             }
             position++;
+        }
+        if (position == studentNumber) {
+            btnValidate.setVisibility(View.VISIBLE);
         }
     }
 
@@ -186,5 +224,33 @@ public class ChronoActivity extends AppCompatActivity {
         tvEleve2.setText(name2);
         tvEleve3.setText(name3);
         tvEleve4.setText(name4);
+        btnValidate.setVisibility(View.INVISIBLE);
+    }
+
+    private int noter(int position) {
+        long time = studentsMillis[position];
+        if (time > 24500) {
+            return 0;
+        } else if (time >= 23000) {
+            return 1;
+        } else if (time >= 21600) {
+            return 2;
+        } else if (time >= 20200) {
+            return 3;
+        } else if (time >= 19000) {
+            return 4;
+        } else if (time >= 17900) {
+            return 5;
+        } else if (time >= 17000) {
+            return 6;
+        } else if (time >= 16400) {
+            return 7;
+        } else {
+            return 8;
+        }
+    }
+
+    private void writeJson() {
+
     }
 }
