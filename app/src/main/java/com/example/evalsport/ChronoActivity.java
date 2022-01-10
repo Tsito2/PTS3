@@ -51,7 +51,6 @@ public class ChronoActivity extends AppCompatActivity {
         this.tvEleve2 = findViewById(R.id.tvEleve2);
         this.tvEleve3 = findViewById(R.id.tvEleve3);
         this.tvEleve4 = findViewById(R.id.tvEleve4);
-        animation = AnimationUtils.loadAnimation(this, R.anim.zoomout);
 
         studentsPassed = new String[]{
                 "Jean",
