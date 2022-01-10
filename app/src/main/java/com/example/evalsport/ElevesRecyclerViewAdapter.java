@@ -62,6 +62,7 @@ public class ElevesRecyclerViewAdapter extends RecyclerView.Adapter<ElevesRecycl
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+
         }
     }
 
@@ -78,5 +79,6 @@ public class ElevesRecyclerViewAdapter extends RecyclerView.Adapter<ElevesRecycl
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+
     }
 }

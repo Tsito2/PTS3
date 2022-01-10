@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ public class ChronoActivity extends AppCompatActivity {
     private int count;
     private int studentNumber;
     private int position;
+    Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class ChronoActivity extends AppCompatActivity {
         this.tvEleve2 = findViewById(R.id.tvEleve2);
         this.tvEleve3 = findViewById(R.id.tvEleve3);
         this.tvEleve4 = findViewById(R.id.tvEleve4);
+        animation = AnimationUtils.loadAnimation(this, R.anim.zoomout);
 
         studentsPassed = new String[]{
                 "Jean",
@@ -64,6 +68,7 @@ public class ChronoActivity extends AppCompatActivity {
         btnReset.setVisibility(View.INVISIBLE);
 
         this.buttonGo.setOnClickListener(view -> {
+            buttonGo.startAnimation(animation);
             if (count == 0) {
                 doStart();
             } else if (count < studentNumber) {
