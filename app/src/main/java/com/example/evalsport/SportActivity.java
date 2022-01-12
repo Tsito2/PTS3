@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.evalsport.models.Sport;
 
@@ -28,28 +29,29 @@ public class SportActivity extends AppCompatActivity implements SportsRecyclerVi
     SportsRecyclerViewAdapter adapter;
     public final String TAG = "SportActivity";
     private JSONObject json;
+    private JSONArray eleves = null;
+    private JSONArray jsonSports = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sports);
 
-        JSONArray jsonArray = null;
         try {
-            jsonArray = new JSONArray(getIntent().getExtras().getString("sports"));
+            jsonSports = new JSONArray(getIntent().getExtras().getString("sports"));
+            eleves = new JSONArray(getIntent().getExtras().getString("eleves"));
             json = new JSONObject(getIntent().getExtras().getString("json"));
+            setTitle(getIntent().getExtras().getString("etape") + "/" + getIntent().getExtras().getString("className"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println("In listSports activity : " + jsonArray);
+        System.out.println("In listSports activity : " + jsonSports);
 
         ArrayList<Sport> listSports = new ArrayList<>();
-
-        JSONArray jArray = jsonArray;
-        if (jArray != null) {
-            for (int i=0;i<jArray.length();i++){
+        if (jsonSports != null) {
+            for (int i=0;i<jsonSports.length();i++){
                 try {
-                    listSports.add(new Sport(jArray.getJSONObject(i).getString("nomSport"), R.drawable.course_haie));
+                    listSports.add(new Sport(jsonSports.getJSONObject(i).getString("nomSport"), R.drawable.course_haie));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -92,6 +94,15 @@ public class SportActivity extends AppCompatActivity implements SportsRecyclerVi
     public void onItemClick(View view, int position) {
         Log.i(TAG, "View : " + view.toString() + "\nPosition : " + position);
         Intent elevesActivityIntent = new Intent(this, ListEleveActivity.class);
+        String sportTitle = "";
+        try {
+             sportTitle = jsonSports.getJSONObject(position).getString("nomSport");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        elevesActivityIntent.putExtra("sportTitle", sportTitle);
+        elevesActivityIntent.putExtra("etape", getTitle());
+        elevesActivityIntent.putExtra("eleves", eleves.toString());
         elevesActivityIntent.putExtra("json", json.toString());
         startActivity(elevesActivityIntent);
     }

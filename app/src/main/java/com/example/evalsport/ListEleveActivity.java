@@ -30,6 +30,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     private TextView nbSelectionnedTextView;
     private Button chronoButton;
     private Button evalButton;
+    private JSONArray jsonEleves;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +42,11 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
 
         JSONObject json = null;
-        JSONArray jsonEleves = null;
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
-            jsonEleves = json.getJSONArray("classes").getJSONObject(1).getJSONArray("eleves");
+            jsonEleves = new JSONArray(getIntent().getExtras().getString("eleves"));
+            setTitle(getIntent().getExtras().getString("etape") + "/" + getIntent().getExtras().getString("sportTitle"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -72,14 +74,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             startActivity(chronoActivity);
             finish();
         });
-/*
-        listeEleves.add("Elève A");
-        listeEleves.add("Elève B");
-        listeEleves.add("Elève C");
-        listeEleves.add("Elève D");
-        listeEleves.add("Elève E");
 
- */
         RecyclerView recyclerView = findViewById(R.id.rvClasses);
         LinearLayout layoutManager = findViewById(R.id.loClasses);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

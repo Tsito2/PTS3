@@ -36,7 +36,6 @@ public class ChronoActivity extends AppCompatActivity {
     private int count;
     private int studentNumber;
     private int position;
-    Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +73,7 @@ public class ChronoActivity extends AppCompatActivity {
         btnValidate.setVisibility(View.INVISIBLE);
 
         this.buttonGo.setOnClickListener(view -> {
-            buttonGo.startAnimation(animation);
+            //buttonGo.startAnimation(animation);
             if (count == 0) {
                 doStart();
             } else if (count < studentNumber) {
