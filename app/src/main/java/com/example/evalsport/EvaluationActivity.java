@@ -22,7 +22,7 @@ import java.util.List;
 
 public class EvaluationActivity extends AppCompatActivity implements CritereRecyclerViewAdapter.ItemClickListener{
     private JSONObject json;
-    private JSONArray jsonCriteres;
+    private JSONArray jsonCriteres1;
     private CritereRecyclerViewAdapter adapter;
     private Button retourButton;
     private TextView titTextView;
@@ -37,15 +37,11 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
             setTitle(getIntent().getExtras().getString("etape") + "/" + "Evaluation");
             titTextView.setText("Evaluation - " + getIntent().getExtras().getString("eleve"));
             json = new JSONObject(getIntent().getExtras().getString("json"));
+            //jsonCriteres1 = json.getJSONArray("sports").getJSONObject(0).getJSONArray("competences").(0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        try {
-            json = new JSONObject(getIntent().getExtras().getString("json"));
-           // jsonCriteres = json.getJSONArray("sports").getJSONArray("competences").getJSONArray();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
         List<String> listeCriteres = new ArrayList<>();
         listeCriteres.add("Courir vite");
         listeCriteres.add("Pas tomber");

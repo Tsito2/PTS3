@@ -15,7 +15,8 @@
         android:theme="@style/Theme.EvalSport">
         <activity
             android:name=".EvaluationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".RecapActivity"
             android:exported="false"
