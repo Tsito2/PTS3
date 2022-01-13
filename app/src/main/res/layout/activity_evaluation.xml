@@ -1,69 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
     tools:context=".EvaluationActivity">
 
     <LinearLayout
-        android:id="@+id/loClasses"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foregroundGravity="center"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="496dp">
-
-        <TextView
-            android:id="@+id/titreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="50dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="Evaluation - Robet Durant"
-            android:textAlignment="center"
-            android:textColor="#D82121"
-            android:textSize="48sp"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCriteres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.2"
-            android:clipChildren="false"
-            android:clipToPadding="false">
-
-        </androidx.recyclerview.widget.RecyclerView>
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttonCancel"
+            <TextView
+                android:id="@+id/titreTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Retour"
-                android:textSize="24sp" />
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Evaluation - Robet Durant"
+                android:textAlignment="center"
+                android:textColor="#D82121"
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/validationButton"
+            <TextView
+                android:id="@+id/noteTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Valider"
-                android:textSize="24sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_weight="1"
+                android:text="0/20"
+                android:textColor="#000000"
+                android:textSize="34sp" />
         </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/comp3"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="Développer sa motricité, langage du corps"
+                        android:textColor="#000000"
+                        android:textSize="19dp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCritere3"
+                        android:layout_width="500dp"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/comp4"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="Développer sa motricité, langage du corps"
+                        android:textColor="#000000"
+                        android:textSize="19dp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCritere4"
+                        android:layout_width="500dp"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/comp5"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="Développer sa motricité, langage du corps"
+                        android:textColor="#000000"
+                        android:textSize="19dp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCritere5"
+                        android:layout_width="500dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/loClasses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:isScrollContainer="true"
+                    android:keepScreenOn="false"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/comp1"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="Développer sa motricité, langage du corps"
+                        android:textColor="#000000"
+                        android:textSize="19dp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCriteres"
+                        android:layout_width="500dp"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        android:clipToPadding="false">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/comp2"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="Développer sa motricité, langage du corps"
+                        android:textColor="#000000"
+                        android:textSize="19dp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCritere2"
+                        android:layout_width="500dp"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/retourButton"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="Retour"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/evalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="Valider"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</LinearLayout>

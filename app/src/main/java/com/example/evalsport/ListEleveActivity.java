@@ -1,6 +1,8 @@
 package com.example.evalsport;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +32,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     private TextView nbSelectionnedTextView;
     private Button chronoButton;
     private Button evalButton;
-    private Button terminerButton;
     private JSONArray jsonEleves;
     private JSONObject json;
 
@@ -41,11 +42,11 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         selectionned = new LinkedList<>();
         chronoButton = findViewById(R.id.chronoButton);
         evalButton = findViewById(R.id.validationButton);
-        terminerButton = findViewById(R.id.terminerButton);
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
 
         disable(chronoButton);
         disable(evalButton);
+
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
             jsonEleves = new JSONArray(getIntent().getExtras().getString("eleves"));
@@ -100,13 +101,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             startActivity(chronoActivity);
         });
 
-        terminerButton.setOnClickListener(view -> {
-            Intent recapActivity = new Intent(this, RecapActivity.class);
-            recapActivity.putExtra("json", json.toString());
-            recapActivity.putExtra("etape", getTitle());
-            startActivity(recapActivity);
-        });
-
         RecyclerView recyclerView = findViewById(R.id.rvClasses);
         LinearLayout layoutManager = findViewById(R.id.loClasses);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -151,7 +145,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
                 note += eleve.getJSONArray("notes").getJSONObject(j).getDouble("note");
             }
         } catch (JSONException e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
         if (note == (int) note) {
             result = String.format("%d",(int)note);
@@ -160,7 +154,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         }
         return result;
     }
-
     public void checkButtons() {
         if (selectionned.size() == 0) {
             disable(chronoButton);
