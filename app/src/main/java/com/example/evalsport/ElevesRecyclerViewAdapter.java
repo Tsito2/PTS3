@@ -31,7 +31,7 @@ public class ElevesRecyclerViewAdapter extends RecyclerView.Adapter<ElevesRecycl
     // inflates the row layout from xml when needed
     @Override
     public ElevesRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
+        View view = mInflater.inflate(R.layout.recyclerview_row_eleve, parent, false);
         return new ElevesRecyclerViewAdapter.ViewHolder(view);
     }
 

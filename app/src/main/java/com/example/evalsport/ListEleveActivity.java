@@ -52,11 +52,23 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         }
 
         ArrayList<String> listeEleves = new ArrayList<>();
-        for (int i=0; i < jsonEleves.length(); i++) {
+        for (int i = 0; i < jsonEleves.length(); i++) {
+            double note = 0;
+            String complete = "";
             JSONObject e = null;
             try {
                 e = jsonEleves.getJSONObject(i);
-                listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve"));
+                if (e.getJSONArray("notes").length() <= 0) {
+                    complete = "N";
+                } else if (e.getJSONArray("notes").length() == 19) {
+                    complete = "C";
+                } else {
+                    complete = "I";
+                }
+                for (int j = 0; j < e.getJSONArray("notes").length(); j++) {
+                    note += e.getJSONArray("notes").getJSONObject(j).getDouble("note");
+                }
+                listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve") + " - " + note + "/20" + " - " + complete);
             } catch (JSONException jsonException) {
                 jsonException.printStackTrace();
             }
@@ -68,9 +80,10 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             String[] elevesSelectiones = new String[selectionned.size()];
 
             for (int i= 0; i < selectionned.size();i++){
-                elevesSelectiones[i] = listeEleves.get(Integer.parseInt(selectionned.get(i)));
+                elevesSelectiones[i] = cleanName(listeEleves.get(Integer.parseInt(selectionned.get(i))));
             }
-            chronoActivity.putExtra("eleves", listeEleves);
+
+            chronoActivity.putExtra("eleves", elevesSelectiones);
             startActivity(chronoActivity);
             finish();
         });
@@ -89,6 +102,10 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         recyclerView.setAdapter(adapter);
     }
 
+    public String cleanName(String eleve) {
+        return eleve.substring(0, eleve.indexOf("-") - 1);
+    }
+
     @Override
     public void onItemClick(View v, int position) {
         Log.i(TAG, "View : " + v.toString() + "\nPosition : " + position);
@@ -96,7 +113,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         if (selectionned.contains(""+position)){
             selectionned.remove("" + position);
             v.setBackground(getResources().getDrawable(R.drawable.layout_bg));
-        }else {
+        } else {
             if (selectionned.size() >= 4){
                 return;
             }
