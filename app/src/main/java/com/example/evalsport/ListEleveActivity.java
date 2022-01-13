@@ -32,6 +32,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     private TextView nbSelectionnedTextView;
     private Button chronoButton;
     private Button evalButton;
+    private Button terminerButton;
     private JSONArray jsonEleves;
     private JSONObject json;
 
@@ -42,11 +43,11 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         selectionned = new LinkedList<>();
         chronoButton = findViewById(R.id.chronoButton);
         evalButton = findViewById(R.id.evalButton);
+        terminerButton = findViewById(R.id.terminerButton);
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
 
         disable(chronoButton);
         disable(evalButton);
-
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
             jsonEleves = new JSONArray(getIntent().getExtras().getString("eleves"));
@@ -106,6 +107,12 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             chronoActivity.putExtra("etape", getTitle());
             chronoActivity.putExtra("json", json.toString());
             startActivity(chronoActivity);
+        });
+
+        terminerButton.setOnClickListener(view -> {
+            Intent recapActivity = new Intent(this, RecapActivity.class);
+            recapActivity.putExtra("json", json.toString());
+            startActivity(recapActivity);
         });
 
         RecyclerView recyclerView = findViewById(R.id.rvClasses);

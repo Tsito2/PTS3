@@ -47,7 +47,12 @@ public class RecapActivity extends AppCompatActivity{
         }
         buttonValider.setOnClickListener(view -> {
             handleConnect(view);
+        });
 
+        buttonAnnuler.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ListEleveActivity.class);
+            intent.putExtra("json", json.toString());
+            startActivity(intent);
         });
     }
 
@@ -140,8 +145,7 @@ public class RecapActivity extends AppCompatActivity{
                         replyContent.append("Identifiants incorrects !");
                     } else { // l'identification du prof est  correcte
                         // Extraction des données JSON
-                        System.out.println("JSON Envoyé");
-
+                        listeRecap.setText("Les données ont été envoyées");
                     }
                 }
 
