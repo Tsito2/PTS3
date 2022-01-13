@@ -45,6 +45,10 @@ public class RecapActivity extends AppCompatActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        buttonValider.setOnClickListener(view -> {
+            handleConnect(view);
+
+        });
     }
 
     public void handleConnect(View v) {
