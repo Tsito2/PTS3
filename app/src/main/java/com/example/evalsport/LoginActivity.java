@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText;
     Button connectButton;
     Boolean connected;
+    Intent classesActivityIntent;
 
 
     @Override
@@ -87,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void handleConnect(View v) {
-        debugTextView.setText("Connexion en cours...\n");
 
         Thread thr = new Thread(new Runnable() {
             public void run() {
@@ -212,13 +213,12 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             // Start list activity ( classes list)
-                            Intent classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
+                            classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
                             System.out.println(classes);
                             classesActivityIntent.putExtra("classes", classes.toString());
                             classesActivityIntent.putExtra("sports", sports.toString());
                             classesActivityIntent.putExtra("json", json.toString());
-                            startActivity(classesActivityIntent);
-                            finish();
+
 
                         }
                         catch (JSONException e) {
@@ -238,7 +238,18 @@ public class LoginActivity extends AppCompatActivity {
                         //debugTextView.append("Connexion terminée");
                        // System.out.println("OAEDFDJVF");
                         if(!connected) debugTextView.setText("Identifiants incorrects !");
-                        else debugTextView.setText("Identifiants corrects !");
+                        else {
+                            debugTextView.setText("Identifiants corrects !");
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    startActivity(classesActivityIntent);
+                                    finish();
+                                }
+                            }, 0500);
+
+
+                        }
                     }
 
 /*

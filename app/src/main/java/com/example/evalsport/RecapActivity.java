@@ -46,7 +46,6 @@ public class RecapActivity extends AppCompatActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("RECAP","ON PASSE AU RECAP");
         buttonValider.setOnClickListener(view -> {
             disable(buttonAnnuler);
             disable(buttonValider);
