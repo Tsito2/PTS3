@@ -31,6 +31,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     private Button chronoButton;
     private Button evalButton;
     private JSONArray jsonEleves;
+    private JSONObject json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,10 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         evalButton = findViewById(R.id.evalButton);
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
 
-        JSONObject json = null;
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
             jsonEleves = new JSONArray(getIntent().getExtras().getString("eleves"));
             setTitle(getIntent().getExtras().getString("etape") + "/" + getIntent().getExtras().getString("sportTitle"));
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -75,18 +74,26 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
 
         }
 
+        evalButton.setOnClickListener(view -> {
+            Intent evaluationActivity = new Intent(this, EvaluationActivity.class);
+            String eleve = cleanName(listeEleves.get(Integer.parseInt(selectionned.get(0))));
+            evaluationActivity.putExtra("eleve", eleve);
+            evaluationActivity.putExtra("etape", getTitle());
+            evaluationActivity.putExtra("json", json.toString());
+            startActivity(evaluationActivity);
+        });
+
         chronoButton.setOnClickListener(view -> {
             Intent chronoActivity = new Intent(this, ChronoActivity.class);
             String[] elevesSelectiones = new String[selectionned.size()];
-
             for (int i= 0; i < selectionned.size();i++){
                 elevesSelectiones[i] = cleanName(listeEleves.get(Integer.parseInt(selectionned.get(i))));
             }
 
             chronoActivity.putExtra("eleves", elevesSelectiones);
             chronoActivity.putExtra("etape", getTitle());
+            chronoActivity.putExtra("json", json.toString());
             startActivity(chronoActivity);
-            finish();
         });
 
         RecyclerView recyclerView = findViewById(R.id.rvClasses);

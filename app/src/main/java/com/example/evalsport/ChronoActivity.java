@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 
 public class ChronoActivity extends AppCompatActivity {
@@ -36,12 +40,20 @@ public class ChronoActivity extends AppCompatActivity {
     private int count;
     private int studentNumber;
     private int position;
+    private JSONObject json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chrono);
-        setTitle(getIntent().getExtras().getString("etape") + "/" + "Chronométrage");
+
+        try {
+            json = new JSONObject(getIntent().getExtras().getString("json"));
+            studentsPassed = getIntent().getExtras().getStringArray("eleves");
+            setTitle(getIntent().getExtras().getString("etape") + "/" + "Chronométrage");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         this.chronometer = findViewById(R.id.chrono);
         this.buttonGo = findViewById(R.id.ivButton);
@@ -51,11 +63,6 @@ public class ChronoActivity extends AppCompatActivity {
         this.tvEleve2 = findViewById(R.id.tvEleve2);
         this.tvEleve3 = findViewById(R.id.tvEleve3);
         this.tvEleve4 = findViewById(R.id.tvEleve4);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            studentsPassed = extras.getStringArray("eleves");
-        }
 
         studentNumber = studentsPassed.length;
         count = 0;
