@@ -46,23 +46,21 @@ public class RecapActivity extends AppCompatActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.e("RECAP","ON PASSE AU RECAP");
         buttonValider.setOnClickListener(view -> {
             disable(buttonAnnuler);
             disable(buttonValider);
-            handleConnect(view);
+            send();
         });
 
         buttonAnnuler.setOnClickListener(view -> {
             finish();
         });
     }
-
-    public void handleConnect(View v) {
-        //debugTextView.setText("Connexion en cours...\n");
-
-        Thread thr = new Thread(new Runnable() {
+    public void send(){
+        runOnUiThread(new Runnable() {
+            @Override
             public void run() {
-                // Serveur
                 String host     = "https://la-projets.univ-lemans.fr/~inf2pj01/";
                 // Page php retournant du JSON
                 String page     = "update.php";
@@ -149,19 +147,8 @@ public class RecapActivity extends AppCompatActivity{
                         listeRecap.setText("Les données ont été envoyées");
                     }
                 }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-
-                });//.init(les paramètres réels));
-
             }
         });
-        // Lancement du thread
-        thr.start();
     }
 
     public void disable(Button button) {
