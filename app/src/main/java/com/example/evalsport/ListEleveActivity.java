@@ -58,6 +58,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         ArrayList<String> listeEleves = new ArrayList<>();
         for (int i = 0; i < jsonEleves.length(); i++) {
             double note = 0;
+            String noteString = "";
             String complete = "";
             JSONObject e = null;
             try {
@@ -72,7 +73,13 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
                 for (int j = 0; j < e.getJSONArray("notes").length(); j++) {
                     note += e.getJSONArray("notes").getJSONObject(j).getDouble("note");
                 }
-                listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve") + " - " + note + "/20" + " - " + complete);
+                if (note == (int) note) {
+                    noteString = String.format("%d",(int)note);
+                } else {
+                    noteString = String.format("%s",note);
+                }
+
+                listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve") + " - " + noteString + "/20" + " - " + complete);
             } catch (JSONException jsonException) {
                 jsonException.printStackTrace();
             }
