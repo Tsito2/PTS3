@@ -88,9 +88,11 @@
 						}
 						$competence['attendus'] = getAttendusFromCompetence($competence['idCompetence']);
 						$competence['gcompetences'] = getGCFromCompetence($competence['idCompetence']);
-						$competence['gcriteres'] = $gcriteres;
+						
 						array_push($competences, $competence);
 					}
+
+					$competence['gcriteres'] = $gcriteres;
 					$sport['competences'] = $competences;
 					$sport['champ_apprentissage'] = getCAFromSport($sport['idSport']);
 					array_push($sports, $sport);
