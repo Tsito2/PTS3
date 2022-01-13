@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText;
     Button connectButton;
     Boolean connected;
-    Intent classesActivityIntent;
 
 
     @Override
@@ -89,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void handleConnect(View v) {
+        debugTextView.setText("Connexion en cours...\n");
+
         Thread thr = new Thread(new Runnable() {
             public void run() {
                 // Serveur
@@ -212,12 +212,13 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             // Start list activity ( classes list)
+                            Intent classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
                             System.out.println(classes);
-                            classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
                             classesActivityIntent.putExtra("classes", classes.toString());
                             classesActivityIntent.putExtra("sports", sports.toString());
                             classesActivityIntent.putExtra("json", json.toString());
-
+                            startActivity(classesActivityIntent);
+                            finish();
 
                         }
                         catch (JSONException e) {
@@ -233,21 +234,11 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(connected == false) debugTextView.setText("Identifiants incorrects !");
-                        else {
-                            debugTextView.setText("Identifiants corrects !");
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startActivity(classesActivityIntent);
-                                    finish();
-                                }
-                            }, 2000);
-                        }
-
                         //debugTextView.setText(debugTextView.getText() + replyContent.toString());
                         //debugTextView.append("Connexion terminée");
                        // System.out.println("OAEDFDJVF");
+                        if(!connected) debugTextView.setText("Identifiants incorrects !");
+                        else debugTextView.setText("Identifiants corrects !");
                     }
 
 /*

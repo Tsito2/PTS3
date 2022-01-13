@@ -69,7 +69,14 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
                 } else {
                     complete = "I";
                 }
-                noteString = getNoteFromEleve(e);
+                for (int j = 0; j < e.getJSONArray("notes").length(); j++) {
+                    note += e.getJSONArray("notes").getJSONObject(j).getDouble("note");
+                }
+                if (note == (int) note) {
+                    noteString = String.format("%d",(int)note);
+                } else {
+                    noteString = String.format("%s",note);
+                }
 
                 listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve") + " - " + noteString + "/20" + " - " + complete);
             } catch (JSONException jsonException) {
@@ -90,7 +97,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         chronoButton.setOnClickListener(view -> {
             Intent chronoActivity = new Intent(this, ChronoActivity.class);
             String[] elevesSelectiones = new String[selectionned.size()];
-            for (int i= 0; i < selectionned.size(); i++){
+            for (int i= 0; i < selectionned.size();i++){
                 elevesSelectiones[i] = cleanName(listeEleves.get(Integer.parseInt(selectionned.get(i))));
             }
 
@@ -141,24 +148,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         nbSelectionnedTextView.setText(selectionned.size() + " / 4 élèves selectionnés" );
         checkButtons();
 
-    }
-
-    public static String getNoteFromEleve(JSONObject eleve){
-        double note =0;
-        String result = "0";
-        try {
-            for (int j = 0; j < eleve.getJSONArray("notes").length(); j++) {
-                note += eleve.getJSONArray("notes").getJSONObject(j).getDouble("note");
-            }
-        } catch (JSONException e) {
-                e.printStackTrace();
-        }
-        if (note == (int) note) {
-            result = String.format("%d",(int)note);
-        } else {
-            result = String.format("%s",note);
-        }
-        return result;
     }
 
     public void checkButtons() {
