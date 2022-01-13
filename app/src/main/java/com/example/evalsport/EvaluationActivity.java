@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,11 +24,22 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
     private JSONObject json;
     private JSONArray jsonCriteres;
     private CritereRecyclerViewAdapter adapter;
+    private Button retourButton;
+    private TextView titTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation);
+        retourButton = findViewById(R.id.retourButton);
+        titTextView = findViewById(R.id.titreTextView);
+        try {
+            setTitle(getIntent().getExtras().getString("etape") + "/" + "Evaluation");
+            titTextView.setText("Evaluation - " + getIntent().getExtras().getString("eleve"));
+            json = new JSONObject(getIntent().getExtras().getString("json"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
            // jsonCriteres = json.getJSONArray("sports").getJSONArray("competences").getJSONArray();
@@ -36,6 +49,7 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
         List<String> listeCriteres = new ArrayList<>();
         listeCriteres.add("Courir vite");
         listeCriteres.add("Pas tomber");
+
         /*
         JSONArray jsonCriteres =  json.getJSONArray("sports").getJSONArray("competences").get;
         LinkedList<String> competences =
@@ -57,6 +71,10 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
         adapter = new CritereRecyclerViewAdapter(this, listeCriteres);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+
+        retourButton.setOnClickListener(view -> {
+            finish();
+        });
     }
 
     @Override

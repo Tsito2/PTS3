@@ -209,7 +209,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             // Start list activity ( classes list)
-                            Intent classesActivityIntent = new Intent(v.getContext(), EvaluationActivity.class);
+                            Intent classesActivityIntent = new Intent(v.getContext(), ListActivity.class);
                             System.out.println(classes);
                             classesActivityIntent.putExtra("classes", classes.toString());
                             classesActivityIntent.putExtra("sports", sports.toString());

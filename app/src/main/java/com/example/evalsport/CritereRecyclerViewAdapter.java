@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,7 +37,7 @@ public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecy
     @Override
     public void onBindViewHolder(CritereRecyclerViewAdapter.ViewHolder holder, int position) {
         String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        holder.checkBox.setText(animal);
     }
 
     // total number of rows
@@ -47,11 +48,11 @@ public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecy
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        CheckBox checkBox;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.descriptionTextView);
+            checkBox = itemView.findViewById(R.id.checkBox);
             itemView.setOnClickListener(this);
         }
 

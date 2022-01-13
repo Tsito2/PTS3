@@ -9,22 +9,13 @@
     android:orientation="horizontal"
     android:padding="20dp">
 
-    <TextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:gravity="center_horizontal"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
     <CheckBox
         android:id="@+id/checkBox"
         style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-        android:text="a coscher" />
+        android:button="@drawable/divider"
+        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple" />
 
 </LinearLayout>
