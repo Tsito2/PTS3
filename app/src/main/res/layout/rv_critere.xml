@@ -16,6 +16,7 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:button="@drawable/divider"
-        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple" />
+        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+        android:gravity="center_vertical" />
 
 </LinearLayout>
