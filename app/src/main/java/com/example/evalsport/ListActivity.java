@@ -59,14 +59,6 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
         }
 
         System.out.println("After parsing : " + listeClasses);
-        /*ArrayList<String> classNames = new ArrayList<>();
-        classNames.add("Sixième A");
-        classNames.add("Sixième B");
-        classNames.add("Cinquième A");
-        classNames.add("Quatrième B");
-        classNames.add("Troisième C");
-
-         */
 
         RecyclerView recyclerView = findViewById(R.id.rvClasses);
         LinearLayout layoutManager = findViewById(R.id.loClasses);

@@ -1,6 +1,8 @@
 package com.example.evalsport;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +43,9 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         chronoButton = findViewById(R.id.chronoButton);
         evalButton = findViewById(R.id.evalButton);
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
+
+        disable(chronoButton);
+        disable(evalButton);
 
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
@@ -117,7 +122,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     @Override
     public void onItemClick(View v, int position) {
         Log.i(TAG, "View : " + v.toString() + "\nPosition : " + position);
-
         if (selectionned.contains(""+position)){
             selectionned.remove("" + position);
             v.setBackground(getResources().getDrawable(R.drawable.layout_bg));
@@ -128,8 +132,41 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             selectionned.add("" + position);
             v.setBackground(getResources().getDrawable(R.drawable.rectangle_green));
         }
-
         nbSelectionnedTextView.setText(selectionned.size() + " / 4 élèves selectionnés" );
+        checkButtons();
 
+    }
+
+    public void checkButtons() {
+        if (selectionned.size() == 0) {
+            disable(chronoButton);
+            disable(evalButton);
+        }
+        if (selectionned.size() == 1) {
+            enable(chronoButton);
+            enable(evalButton);
+        }
+        if (selectionned.size() == 2) {
+            enable(chronoButton);
+            disable(evalButton);
+        }
+        if (selectionned.size() == 3) {
+            enable(chronoButton);
+            disable(evalButton);
+        }
+        if (selectionned.size() == 4) {
+            enable(chronoButton);
+            disable(evalButton);
+        }
+    }
+
+    public void disable(Button button) {
+        button.setAlpha(0.5f);
+        button.setEnabled(false);
+    }
+
+    public void enable(Button button) {
+        button.setAlpha(1.0f);
+        button.setEnabled(true);
     }
 }
