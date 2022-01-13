@@ -47,6 +47,8 @@ public class RecapActivity extends AppCompatActivity{
             e.printStackTrace();
         }
         buttonValider.setOnClickListener(view -> {
+            disable(buttonAnnuler);
+            disable(buttonValider);
             handleConnect(view);
         });
 
@@ -162,5 +164,13 @@ public class RecapActivity extends AppCompatActivity{
         thr.start();
     }
 
+    public void disable(Button button) {
+        button.setAlpha(0.5f);
+        button.setEnabled(false);
+    }
 
+    public void enable(Button button) {
+        button.setAlpha(1.0f);
+        button.setEnabled(true);
+    }
 }
