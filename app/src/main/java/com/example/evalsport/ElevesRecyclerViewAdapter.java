@@ -55,7 +55,7 @@ public class ElevesRecyclerViewAdapter extends RecyclerView.Adapter<ElevesRecycl
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvClassName);
+            myTextView = itemView.findViewById(R.id.descriptionTextView);
             itemView.setOnClickListener(this);
         }
 
