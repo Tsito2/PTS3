@@ -1,6 +1,8 @@
 package com.example.evalsport;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +44,9 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         evalButton = findViewById(R.id.evalButton);
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
 
+        disable(chronoButton);
+        disable(evalButton);
+
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
             jsonEleves = new JSONArray(getIntent().getExtras().getString("eleves"));
@@ -53,6 +58,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         ArrayList<String> listeEleves = new ArrayList<>();
         for (int i = 0; i < jsonEleves.length(); i++) {
             double note = 0;
+            String noteString = "";
             String complete = "";
             JSONObject e = null;
             try {
@@ -67,7 +73,13 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
                 for (int j = 0; j < e.getJSONArray("notes").length(); j++) {
                     note += e.getJSONArray("notes").getJSONObject(j).getDouble("note");
                 }
-                listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve") + " - " + note + "/20" + " - " + complete);
+                if (note == (int) note) {
+                    noteString = String.format("%d",(int)note);
+                } else {
+                    noteString = String.format("%s",note);
+                }
+
+                listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve") + " - " + noteString + "/20" + " - " + complete);
             } catch (JSONException jsonException) {
                 jsonException.printStackTrace();
             }
@@ -117,7 +129,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     @Override
     public void onItemClick(View v, int position) {
         Log.i(TAG, "View : " + v.toString() + "\nPosition : " + position);
-
         if (selectionned.contains(""+position)){
             selectionned.remove("" + position);
             v.setBackground(getResources().getDrawable(R.drawable.layout_bg));
@@ -128,8 +139,41 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             selectionned.add("" + position);
             v.setBackground(getResources().getDrawable(R.drawable.rectangle_green));
         }
-
         nbSelectionnedTextView.setText(selectionned.size() + " / 4 élèves selectionnés" );
+        checkButtons();
 
+    }
+
+    public void checkButtons() {
+        if (selectionned.size() == 0) {
+            disable(chronoButton);
+            disable(evalButton);
+        }
+        if (selectionned.size() == 1) {
+            enable(chronoButton);
+            enable(evalButton);
+        }
+        if (selectionned.size() == 2) {
+            enable(chronoButton);
+            disable(evalButton);
+        }
+        if (selectionned.size() == 3) {
+            enable(chronoButton);
+            disable(evalButton);
+        }
+        if (selectionned.size() == 4) {
+            enable(chronoButton);
+            disable(evalButton);
+        }
+    }
+
+    public void disable(Button button) {
+        button.setAlpha(0.5f);
+        button.setEnabled(false);
+    }
+
+    public void enable(Button button) {
+        button.setAlpha(1.0f);
+        button.setEnabled(true);
     }
 }

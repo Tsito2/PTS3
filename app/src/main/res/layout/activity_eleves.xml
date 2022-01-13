@@ -22,6 +22,7 @@
             android:id="@+id/titreTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="50dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Voici la liste des élèves"
@@ -52,30 +53,31 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/chronoButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:text="Chronometrer"
+                android:text="Chronométrer"
                 android:textSize="24sp" />
 
             <Button
                 android:id="@+id/evalButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:text="Evaluer"
                 android:textSize="24sp" />
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:text="Terminer la séance"
