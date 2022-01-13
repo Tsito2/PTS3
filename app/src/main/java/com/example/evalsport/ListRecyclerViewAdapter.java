@@ -48,7 +48,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvClassName);
+            myTextView = itemView.findViewById(R.id.descriptionTextView);
             itemView.setOnClickListener(this);
         }
 

@@ -27,7 +27,7 @@ public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecy
     // inflates the row layout from xml when needed
     @Override
     public CritereRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
+        View view = mInflater.inflate(R.layout.rv_critere, parent, false);
         return new CritereRecyclerViewAdapter.ViewHolder(view);
     }
 
@@ -51,7 +51,7 @@ public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecy
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvClassName);
+            myTextView = itemView.findViewById(R.id.descriptionTextView);
             itemView.setOnClickListener(this);
         }
 

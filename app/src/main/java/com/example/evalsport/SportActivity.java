@@ -51,7 +51,7 @@ public class SportActivity extends AppCompatActivity implements SportsRecyclerVi
         if (jsonSports != null) {
             for (int i=0;i<jsonSports.length();i++){
                 try {
-                    listSports.add(new Sport(jsonSports.getJSONObject(i).getString("nomSport"), R.drawable.course_haie));
+                    listSports.add(new Sport(jsonSports.getJSONObject(i).getString("nomSport")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

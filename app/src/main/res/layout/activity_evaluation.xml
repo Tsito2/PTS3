@@ -6,4 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".EvaluationActivity">
 
+    <LinearLayout
+        android:id="@+id/loClasses"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="496dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Evaluation - Robet Durant"
+            android:textAlignment="center"
+            android:textColor="#D82121"
+            android:textSize="48sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCriteres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.2"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/chronoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="Chronometrer"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/evalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="Evaluer"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="Terminer la séance"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
