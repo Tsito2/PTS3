@@ -1,6 +1,8 @@
 package com.example.evalsport;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +32,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
     private TextView nbSelectionnedTextView;
     private Button chronoButton;
     private Button evalButton;
-    private Button terminerButton;
     private JSONArray jsonEleves;
     private JSONObject json;
 
@@ -41,11 +42,11 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         selectionned = new LinkedList<>();
         chronoButton = findViewById(R.id.chronoButton);
         evalButton = findViewById(R.id.validationButton);
-        terminerButton = findViewById(R.id.terminerButton);
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
 
         disable(chronoButton);
         disable(evalButton);
+
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
             jsonEleves = new JSONArray(getIntent().getExtras().getString("eleves"));
@@ -69,14 +70,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
                 } else {
                     complete = "I";
                 }
-                for (int j = 0; j < e.getJSONArray("notes").length(); j++) {
-                    note += e.getJSONArray("notes").getJSONObject(j).getDouble("note");
-                }
-                if (note == (int) note) {
-                    noteString = String.format("%d",(int)note);
-                } else {
-                    noteString = String.format("%s",note);
-                }
+                noteString = getNoteFromEleve(e);
 
                 listeEleves.add(e.getString("prenomEleve") + " " + e.getString("nomEleve") + " - " + noteString + "/20" + " - " + complete);
             } catch (JSONException jsonException) {
@@ -97,7 +91,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         chronoButton.setOnClickListener(view -> {
             Intent chronoActivity = new Intent(this, ChronoActivity.class);
             String[] elevesSelectiones = new String[selectionned.size()];
-            for (int i= 0; i < selectionned.size();i++){
+            for (int i= 0; i < selectionned.size(); i++){
                 elevesSelectiones[i] = cleanName(listeEleves.get(Integer.parseInt(selectionned.get(i))));
             }
 
@@ -105,13 +99,6 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             chronoActivity.putExtra("etape", getTitle());
             chronoActivity.putExtra("json", json.toString());
             startActivity(chronoActivity);
-        });
-
-        terminerButton.setOnClickListener(view -> {
-            Intent recapActivity = new Intent(this, RecapActivity.class);
-            recapActivity.putExtra("json", json.toString());
-            recapActivity.putExtra("etape", getTitle());
-            startActivity(recapActivity);
         });
 
         RecyclerView recyclerView = findViewById(R.id.rvClasses);
@@ -150,6 +137,23 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
 
     }
 
+    public static String getNoteFromEleve(JSONObject eleve){
+        double note =0;
+        String result = "0";
+        try {
+            for (int j = 0; j < eleve.getJSONArray("notes").length(); j++) {
+                note += eleve.getJSONArray("notes").getJSONObject(j).getDouble("note");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (note == (int) note) {
+            result = String.format("%d",(int)note);
+        } else {
+            result = String.format("%s",note);
+        }
+        return result;
+    }
     public void checkButtons() {
         if (selectionned.size() == 0) {
             disable(chronoButton);

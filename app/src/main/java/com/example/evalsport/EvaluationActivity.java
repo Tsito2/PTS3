@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class EvaluationActivity extends AppCompatActivity implements CritereRecyclerViewAdapter.ItemClickListener{
@@ -25,6 +26,7 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
     private CritereRecyclerViewAdapter adapter;
     private Button retourButton;
     private TextView titTextView;
+    private TextView noteTextView;
     private List<TextView> allComp;
     private TextView comp1;
     private TextView comp2;
@@ -36,8 +38,10 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation);
-        retourButton = findViewById(R.id.buttonCancel);
+        retourButton = findViewById(R.id.retourButton);
         titTextView = findViewById(R.id.titreTextView);
+        noteTextView = findViewById(R.id.noteTextView);
+        //noteTextView.setText(ListEleveActivity.getNoteFromEleve());
         allComp = new LinkedList<>();
         comp1 = findViewById(R.id.comp1);
         comp2 = findViewById(R.id.comp2);
@@ -153,8 +157,6 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
         recyclerView5.setAdapter(adapter);
 
 
-
-
         retourButton.setOnClickListener(view -> {
             finish();
         });
@@ -172,6 +174,8 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
         }
         return list;
     }
+
+
 
     public static String capitalize(String str) {
         if(str == null || str.isEmpty()) {
