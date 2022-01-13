@@ -29,6 +29,7 @@ public class ChronoActivity extends AppCompatActivity {
     private TextView tvEleve4;
     private String[] studentsTime;
     private String[] studentsPassed;
+    private String[] studentsPodium;
     private Integer[] studentsScore;
     private long[] studentsMillis;
     private Button btnReset;
@@ -68,6 +69,7 @@ public class ChronoActivity extends AppCompatActivity {
         count = 0;
         position = 0;
         studentsTime = new String[studentNumber];
+        studentsPodium = new String[studentNumber];
         studentsScore = new Integer[studentNumber];
         studentsMillis = new long[studentNumber];
 
@@ -201,18 +203,22 @@ public class ChronoActivity extends AppCompatActivity {
                 int score = noter(0);
                 t.setText("1er - " + name + " - " + studentsTime[position] + " - " + score + "/8");
                 studentsScore[position] = score;
+                studentsPodium[position] = name;
             } else if (position == 1) {
                 int score = noter(1);
                 t.setText("2ème - " + name + " - " + studentsTime[position] + " - " + score + "/8");
                 studentsScore[position] = score;
+                studentsPodium[position] = name;
             } else if (position == 2) {
                 int score = noter(2);
                 t.setText("3ème - " + name + " - " + studentsTime[position] + " - " + score + "/8");
                 studentsScore[position] = score;
+                studentsPodium[position] = name;
             } else if (position == 3) {
                 int score = noter(3);
                 t.setText("4ème - " + name + " - " + studentsTime[position] + " - " + score + "/8");
                 studentsScore[position] = score;
+                studentsPodium[position] = name;
             }
             position++;
         }
@@ -254,6 +260,21 @@ public class ChronoActivity extends AppCompatActivity {
     }
 
     private void writeJson() {
+        int i = 0;
+        for (final String name : studentsPodium) {
+            String nom = name.substring(0, name.indexOf(" "));
+            String prenom = name.substring(name.indexOf(" ") + 1);
+            int note = studentsScore[i];
+            boolean exists = false;
+            for (int j = 0; j < json.length(); j++) { // Pas bon (check le critère 1 si il existe : exists = true)
+                exists = true;
+            }
+            if (exists == true) { // Il existe on remplace la valeur
 
+            } else { // Il existe pas on crée la note
+
+            }
+            i++;
+        }
     }
 }
