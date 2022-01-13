@@ -36,12 +36,13 @@ public class RecapActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recap);
 
-        buttonAnnuler = findViewById(R.id.buttonAnnuler);
-        buttonValider = findViewById(R.id.buttonValider);
+        buttonAnnuler = findViewById(R.id.buttonCancel);
+        buttonValider = findViewById(R.id.validationButton);
         listeRecap = findViewById(R.id.listeModifs);
 
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
+            setTitle(getIntent().getExtras().getString("etape") + "/Fin de la séance");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -50,9 +51,7 @@ public class RecapActivity extends AppCompatActivity{
         });
 
         buttonAnnuler.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ListEleveActivity.class);
-            intent.putExtra("json", json.toString());
-            startActivity(intent);
+            finish();
         });
     }
 

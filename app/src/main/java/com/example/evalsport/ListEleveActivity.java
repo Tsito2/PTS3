@@ -1,8 +1,6 @@
 package com.example.evalsport;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +40,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         setContentView(R.layout.activity_eleves);
         selectionned = new LinkedList<>();
         chronoButton = findViewById(R.id.chronoButton);
-        evalButton = findViewById(R.id.evalButton);
+        evalButton = findViewById(R.id.validationButton);
         terminerButton = findViewById(R.id.terminerButton);
         nbSelectionnedTextView = findViewById(R.id.nbSectionnedTextView);
 
@@ -112,6 +110,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
         terminerButton.setOnClickListener(view -> {
             Intent recapActivity = new Intent(this, RecapActivity.class);
             recapActivity.putExtra("json", json.toString());
+            recapActivity.putExtra("etape", getTitle());
             startActivity(recapActivity);
         });
 

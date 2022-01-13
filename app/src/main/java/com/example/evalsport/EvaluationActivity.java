@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class EvaluationActivity extends AppCompatActivity implements CritereRecyclerViewAdapter.ItemClickListener{
@@ -31,7 +30,7 @@ public class EvaluationActivity extends AppCompatActivity implements CritereRecy
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation);
-        retourButton = findViewById(R.id.retourButton);
+        retourButton = findViewById(R.id.buttonCancel);
         titTextView = findViewById(R.id.titreTextView);
         try {
             setTitle(getIntent().getExtras().getString("etape") + "/" + "Evaluation");
