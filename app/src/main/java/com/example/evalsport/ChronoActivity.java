@@ -51,12 +51,10 @@ public class ChronoActivity extends AppCompatActivity {
         this.tvEleve3 = findViewById(R.id.tvEleve3);
         this.tvEleve4 = findViewById(R.id.tvEleve4);
 
-        studentsPassed = new String[]{
-                "Jean",
-                "Pierre",
-                "Roger",
-                "Corentin"
-        };
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            studentsPassed = extras.getStringArray("eleves");
+        }
 
         studentNumber = studentsPassed.length;
         count = 0;
@@ -73,7 +71,6 @@ public class ChronoActivity extends AppCompatActivity {
         btnValidate.setVisibility(View.INVISIBLE);
 
         this.buttonGo.setOnClickListener(view -> {
-            //buttonGo.startAnimation(animation);
             if (count == 0) {
                 doStart();
             } else if (count < studentNumber) {

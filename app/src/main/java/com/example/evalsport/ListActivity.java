@@ -88,13 +88,13 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
         Intent sportActivityIntent = new Intent(this, SportActivity.class);
         sportActivityIntent.putExtra("sports", jsonSports.toString());
         String className = listeClasses.get(position);
-        JSONArray eleves =null;
+        JSONArray eleves = null;
         try {
             eleves = jsonClasses.getJSONObject(position).getJSONArray("eleves");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (eleves == null){
+        if (eleves == null) {
             eleves = new JSONArray();
         }
         sportActivityIntent.putExtra("etape", getTitle());
