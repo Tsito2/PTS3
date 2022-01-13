@@ -41,6 +41,7 @@ public class ChronoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chrono);
+        setTitle(getIntent().getExtras().getString("etape") + "/" + "Chronométrage");
 
         this.chronometer = findViewById(R.id.chrono);
         this.buttonGo = findViewById(R.id.ivButton);

@@ -84,6 +84,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             }
 
             chronoActivity.putExtra("eleves", elevesSelectiones);
+            chronoActivity.putExtra("etape", getTitle());
             startActivity(chronoActivity);
             finish();
         });
