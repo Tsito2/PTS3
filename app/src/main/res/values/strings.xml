@@ -4,4 +4,5 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="recapitulatif_des_changements">RECAPITULATIF DES CHANGEMENTS</string>
+    <string name="fin_de_la_séance">Fin de la séance</string>
 </resources>

@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private EditText usernameEditText;
     Button connectButton;
+    Boolean connected;
 
 
     @Override
@@ -181,11 +182,13 @@ public class LoginActivity extends AppCompatActivity {
                     if (result.compareTo("NOK") == 0) { // l'identification du prof n'est pas correcte
                         System.out.println("Connexion refusée !");
                         replyContent.append("Connexion refusée !\n");
+                        connected = false;
                     } else if (result.contains("LOGIN NOT FOUND")) {
-                        System.out.println("Identifiants incorrects !");
                         replyContent.append("Identifiants incorrects !");
+                        connected = false;
                     } else { // l'identification du prof est  correcte
                         // Extraction des données JSON
+                        connected = true;
                         try {
                             JSONObject json = new JSONObject(result);
                             Log.d(TAG,json.getString("nomProfesseur") + " connection acceptée");
@@ -234,6 +237,8 @@ public class LoginActivity extends AppCompatActivity {
                         //debugTextView.setText(debugTextView.getText() + replyContent.toString());
                         //debugTextView.append("Connexion terminée");
                        // System.out.println("OAEDFDJVF");
+                        if(!connected) debugTextView.setText("Identifiants incorrects !");
+                        else debugTextView.setText("Identifiants corrects !");
                     }
 
 /*

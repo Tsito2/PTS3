@@ -36,23 +36,31 @@ public class RecapActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recap);
 
-        buttonAnnuler = findViewById(R.id.buttonAnnuler);
-        buttonValider = findViewById(R.id.buttonValider);
+        buttonAnnuler = findViewById(R.id.buttonCancel);
+        buttonValider = findViewById(R.id.validationButton);
         listeRecap = findViewById(R.id.listeModifs);
 
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
+            setTitle(getIntent().getExtras().getString("etape") + "/Fin de la séance");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.e("RECAP","ON PASSE AU RECAP");
+        buttonValider.setOnClickListener(view -> {
+            disable(buttonAnnuler);
+            disable(buttonValider);
+            send();
+        });
+
+        buttonAnnuler.setOnClickListener(view -> {
+            finish();
+        });
     }
-
-    public void handleConnect(View v) {
-        //debugTextView.setText("Connexion en cours...\n");
-
-        Thread thr = new Thread(new Runnable() {
+    public void send(){
+        runOnUiThread(new Runnable() {
+            @Override
             public void run() {
-                // Serveur
                 String host     = "https://la-projets.univ-lemans.fr/~inf2pj01/";
                 // Page php retournant du JSON
                 String page     = "update.php";
@@ -136,24 +144,20 @@ public class RecapActivity extends AppCompatActivity{
                         replyContent.append("Identifiants incorrects !");
                     } else { // l'identification du prof est  correcte
                         // Extraction des données JSON
-                        System.out.println("JSON Envoyé");
-
+                        listeRecap.setText("Les données ont été envoyées");
                     }
                 }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-
-                });//.init(les paramètres réels));
-
             }
         });
-        // Lancement du thread
-        thr.start();
     }
 
+    public void disable(Button button) {
+        button.setAlpha(0.5f);
+        button.setEnabled(false);
+    }
 
+    public void enable(Button button) {
+        button.setAlpha(1.0f);
+        button.setEnabled(true);
+    }
 }
