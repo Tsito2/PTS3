@@ -14,9 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EvalSport">
         <activity
+            android:name=".EvaluationActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecapActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ChronoActivity"
             android:exported="false"
