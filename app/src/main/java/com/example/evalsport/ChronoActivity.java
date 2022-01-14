@@ -80,6 +80,7 @@ public class ChronoActivity extends AppCompatActivity {
         btnReset.setVisibility(View.INVISIBLE);
         btnValidate.setVisibility(View.INVISIBLE);
 
+
         this.buttonGo.setOnClickListener(view -> {
             if (count == 0) {
                 doStart();
@@ -91,7 +92,8 @@ public class ChronoActivity extends AppCompatActivity {
         });
 
         this.btnValidate.setOnClickListener(view -> {
-            writeJson();
+           // writeJson();
+            finish();
         });
 
         if (studentNumber >= 4) {
