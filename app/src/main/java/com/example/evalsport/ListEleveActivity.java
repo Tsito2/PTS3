@@ -83,6 +83,7 @@ public class ListEleveActivity extends AppCompatActivity implements ElevesRecycl
             Intent evaluationActivity = new Intent(this, EvaluationActivity.class);
             String eleve = cleanName(listeEleves.get(Integer.parseInt(selectionned.get(0))));
             evaluationActivity.putExtra("eleve", eleve);
+            evaluationActivity.putExtra("eleves", jsonEleves.toString());
             evaluationActivity.putExtra("etape", getTitle());
             evaluationActivity.putExtra("json", json.toString());
             startActivity(evaluationActivity);

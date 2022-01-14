@@ -1,6 +1,7 @@
 package com.example.evalsport;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +10,20 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.evalsport.models.Critere;
+
 import java.util.List;
 
 public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecyclerViewAdapter.ViewHolder> {
     /**
      * Hello world !
      */
-    private List<String> mData;
+    private List<Critere> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    CritereRecyclerViewAdapter(Context context, List<String> data) {
+    CritereRecyclerViewAdapter(Context context, List<Critere> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -36,8 +39,11 @@ public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecy
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(CritereRecyclerViewAdapter.ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.checkBox.setText(animal);
+        Critere item = mData.get(position);
+        holder.checkBox.setText(item.getDescription());
+        holder.checkBox.setChecked(item.isChecked());
+
+
     }
 
     // total number of rows
@@ -58,6 +64,7 @@ public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecy
 
         @Override
         public void onClick(View view) {
+            Log.e("RV","yes clicked");
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
 
         }
@@ -65,7 +72,7 @@ public class CritereRecyclerViewAdapter extends RecyclerView.Adapter<CritereRecy
 
     // convenience method for getting data at click position
     String getItem(int id) {
-        return mData.get(id);
+        return mData.get(id).getDescription();
     }
 
     // allows clicks events to be caught

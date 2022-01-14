@@ -52,14 +52,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:overScrollMode="never">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="25dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:overScrollMode="never">
 
                     <TextView
                         android:id="@+id/comp3"
@@ -76,7 +78,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCritere3"
                         android:layout_width="500dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
@@ -95,7 +99,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCritere4"
                         android:layout_width="500dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
@@ -114,7 +120,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCritere5"
                         android:layout_width="500dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp" />
 
                 </LinearLayout>
 
@@ -125,9 +133,10 @@
                     android:layout_marginLeft="25dp"
                     android:foregroundGravity="center"
                     android:gravity="center"
-                    android:isScrollContainer="true"
+                    android:isScrollContainer="false"
                     android:keepScreenOn="false"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:overScrollMode="never">
 
                     <TextView
                         android:id="@+id/comp1"
@@ -145,6 +154,8 @@
                         android:id="@+id/rvCriteres"
                         android:layout_width="500dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp"
                         android:clipChildren="false"
                         android:clipToPadding="false">
 
@@ -165,7 +176,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCritere2"
                         android:layout_width="500dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
