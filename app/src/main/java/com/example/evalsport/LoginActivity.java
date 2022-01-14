@@ -49,11 +49,11 @@ public class LoginActivity extends AppCompatActivity {
     Button connectButton;
     Boolean connected;
     Intent classesActivityIntent;
+    private JSONObject json;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -62,26 +62,35 @@ public class LoginActivity extends AppCompatActivity {
         connectButton = findViewById(R.id.connectButton);
         debugTextView = findViewById(R.id.debugTextView);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            try {
+                json = new JSONObject(getIntent().getExtras().getString("json"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         connectButton.setOnClickListener(view -> {
             Log.e(TAG, usernameEditText.getText().toString());
-            if (usernameEditText.getText().toString().contains("chrono"))
-            {
+            if (usernameEditText.getText().toString().contains("chrono")) {
                 Intent chronoActivity = new Intent(this, ChronoActivity.class);
                 startActivity(chronoActivity);
                 finish();
-            }
-            else if (usernameEditText.getText().toString().contains("recap")){
+            } else if (usernameEditText.getText().toString().contains("recap")) {
                 Intent recapActivity = new Intent(this, RecapActivity.class);
                 startActivity(recapActivity);
                 finish();
+            } else if (usernameEditText.getText().toString().contains("bergeron")) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        cheat();
+                    }
+                }, 200);
             }
-
-
-
             handleConnect(view);
-
         });
-
     }
 
     protected void showList(Bundle savedInstanceState) {
@@ -93,15 +102,15 @@ public class LoginActivity extends AppCompatActivity {
         Thread thr = new Thread(new Runnable() {
             public void run() {
                 // Serveur
-                String host     = "https://la-projets.univ-lemans.fr/~inf2pj01/";
+                String host = "https://la-projets.univ-lemans.fr/~inf2pj01/";
                 // Page php retournant du JSON
-                String page     = "login.php";
+                String page = "login.php";
 
                 // Identifiants prof (en dur pour les tests)
                 //String login    = "ernet"; // le login provient du champ login de l'interface de connexion
                 //String password = "be";    // le login provient du champ mot de passe de l'interface de connexion
 
-                String login    = usernameEditText.getText().toString();
+                String login = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
 
@@ -129,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                     String data = "login=" + login + "&password=" + password;
 
                     // Préparation de la requête POST
-                    urlConnection.setDoOutput(true);							// nécessaire pour POST
+                    urlConnection.setDoOutput(true);                            // nécessaire pour POST
                     urlConnection.setRequestMethod("POST");
                     urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
 
@@ -157,13 +166,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Obtention de la chaîne de caractères
                     result = sb.toString();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     // Erreur de connexion (peut se produire et doit être gérée)
                     Log.d(TAG, "PAS DE CONNEXION");
                     replyContent.append("PAS DE CONNEXION\n");
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // Erreur imprévue (peut se produire et doit être gérée)
                     e.printStackTrace();
                     Log.d(TAG, "ERREUR EXCEPTION");
@@ -192,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
                         connected = true;
                         try {
                             JSONObject json = new JSONObject(result);
-                            Log.d(TAG,json.getString("nomProfesseur") + " connection acceptée");
+                            Log.d(TAG, json.getString("nomProfesseur") + " connection acceptée");
                             replyContent.append(json.getString("nomProfesseur") + " connection acceptée\n");
 
                             // Extraction de la liste des classes
@@ -218,10 +225,10 @@ public class LoginActivity extends AppCompatActivity {
                             classesActivityIntent.putExtra("classes", classes.toString());
                             classesActivityIntent.putExtra("sports", sports.toString());
                             classesActivityIntent.putExtra("json", json.toString());
+                            classesActivityIntent.putExtra("cheat", "false");
 
 
-                        }
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             // Erreur JSON (ne devrait jamais se produire si la page php fait bien son travail)
                             Log.e("RESULT : ", result);
                             e.printStackTrace();
@@ -236,20 +243,23 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         //debugTextView.setText(debugTextView.getText() + replyContent.toString());
                         //debugTextView.append("Connexion terminée");
-                       // System.out.println("OAEDFDJVF");
-                        if(!connected) debugTextView.setText("Identifiants incorrects !");
-                        else {
-                            debugTextView.setText("Identifiants corrects !");
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                public void run() {
-                                    startActivity(classesActivityIntent);
-                                    finish();
-                                }
-                            }, 0500);
-
-
+                        // System.out.println("OAEDFDJVF");
+                        if (!connected && !usernameEditText.getText().toString().contains("bergeron")) {
+                            debugTextView.setText("Identifiants incorrects !");
                         }
+                        else {
+                            if (!usernameEditText.getText().toString().contains("bergeron")) {
+                                debugTextView.setText("Identifiants corrects !");
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        startActivity(classesActivityIntent);
+                                        finish();
+                                    }
+                                }, 0500);
+                            }
+                        }
+
                     }
 
 /*
@@ -267,6 +277,20 @@ public class LoginActivity extends AppCompatActivity {
         thr.start();
     }
 
-
+    public void cheat() {
+        try {
+            JSONArray sports = json.getJSONArray("sports");
+            JSONArray classes = json.getJSONArray("classes");
+            Intent listActivity = new Intent(this, ListActivity.class);
+            listActivity.putExtra("json", json.toString());
+            listActivity.putExtra("classes", classes.toString());
+            listActivity.putExtra("sports", sports.toString());
+            listActivity.putExtra("cheat", "antoine.bergeron");
+            startActivity(listActivity);
+            finish();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

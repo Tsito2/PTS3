@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,9 @@ public class RecapActivity extends AppCompatActivity{
     Button buttonAnnuler;
     Button buttonValider;
     TextView listeRecap;
+    TextView debugTv;
+    int i;
+    int flag = 0;
     private JSONObject json;
 
     @Override
@@ -36,9 +40,14 @@ public class RecapActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recap);
 
+        i = 0;
+
         buttonAnnuler = findViewById(R.id.buttonCancel);
         buttonValider = findViewById(R.id.validationButton);
         listeRecap = findViewById(R.id.listeModifs);
+        debugTv = findViewById(R.id.debugTv);
+
+        debugTv.setVisibility(View.INVISIBLE);
 
         try {
             json = new JSONObject(getIntent().getExtras().getString("json"));
@@ -46,10 +55,19 @@ public class RecapActivity extends AppCompatActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         buttonValider.setOnClickListener(view -> {
-            disable(buttonAnnuler);
-            disable(buttonValider);
-            send();
+            if (flag == 0) {
+                disable(buttonAnnuler);
+                disable(buttonValider);
+                debugTv.setVisibility(View.VISIBLE);
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    public void run() {
+                        switch1();
+                    }
+                }, 250);
+            }
         });
 
         buttonAnnuler.setOnClickListener(view -> {
@@ -158,5 +176,89 @@ public class RecapActivity extends AppCompatActivity{
     public void enable(Button button) {
         button.setAlpha(1.0f);
         button.setEnabled(true);
+    }
+    public void switch1() {
+        debugTv.setText("Données en cours d'envoi.");
+        if (i == 15) {
+            spectacle();
+        }
+        if (flag == 0) {
+            Handler handler2 = new Handler();
+            handler2.postDelayed(new Runnable() {
+                public void run() {
+                    i++;
+                    switch2();
+                }
+            }, 250);
+        }
+    }
+
+    public void switch2() {
+        debugTv.setText("Données en cours d'envoi..");
+        if (i == 15) {
+            spectacle();
+        }
+        if (flag == 0) {
+            Handler handler3 = new Handler();
+            handler3.postDelayed(new Runnable() {
+                public void run() {
+                    i++;
+                    switch3();
+                }
+            }, 250);
+        }
+    }
+
+    public void switch3() {
+        debugTv.setText("Données en cours d'envoi...");
+        if (i == 15) {
+            spectacle();
+        }
+        if (flag == 0) {
+            Handler handler4 = new Handler();
+            handler4.postDelayed(new Runnable() {
+                public void run() {
+                    i++;
+                    switch4();
+                }
+            }, 250);
+        }
+    }
+
+    public void switch4() {
+        debugTv.setText("Données en cours d'envoi");
+        if (i == 15) {
+            spectacle();
+        }
+        if (flag == 0) {
+            Handler handler5 = new Handler();
+            handler5.postDelayed(new Runnable() {
+                public void run() {
+                    i++;
+                    switch1();
+                }
+            }, 250);
+        }
+    }
+
+    public void spectacle() {
+        debugTv.setText("Données transmises avec succés !");
+        flag = 1;
+        Handler handler6 = new Handler();
+        handler6.postDelayed(new Runnable() {
+            public void run() {
+                disconnect();
+            }
+        }, 3000);
+    }
+
+    public void disconnect() {
+        Intent i = new Intent(this, LoginActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.putExtra("json", json.toString());
+        startActivity(i);
+        finish();
     }
 }

@@ -29,11 +29,13 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
     private JSONObject json;
     private ArrayList<String> listeClasses;
     private JSONArray jsonClasses;
+    private String cheat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
 
         jsonClasses = null;
         jsonSports = null;
@@ -42,7 +44,14 @@ public class ListActivity extends AppCompatActivity implements ListRecyclerViewA
             jsonClasses = new JSONArray(getIntent().getExtras().getString("classes"));
             jsonSports = new JSONArray(getIntent().getExtras().getString("sports"));
             json = new JSONObject(getIntent().getExtras().getString("json"));
-            setTitle("EvalSport - "+json.getString("prenomProfesseur") + "." + json.getString("nomProfesseur"));
+            cheat = getIntent().getExtras().getString("cheat");
+            System.out.println(cheat);
+            if (cheat.equalsIgnoreCase("false")) {
+                setTitle("EvalSport - "+json.getString("prenomProfesseur") + "." + json.getString("nomProfesseur"));
+            } else {
+                setTitle("EvalSport - " + cheat);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -21,11 +21,24 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/debugTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:shadowColor="#040404"
+        android:text="Données en cours d'envoi"
+        android:textColor="#D82121"
+        android:textSize="48sp" />
+
+    <TextView
         android:id="@+id/listeModifs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
         android:gravity="bottom|center"
         android:text="Voulez-vous terminer la séance ?"
